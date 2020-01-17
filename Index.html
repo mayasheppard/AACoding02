@@ -1,4 +1,5 @@
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,12 +8,12 @@
 <meta name="apple-mobile-web-app-title" content="CodePen">
 <link rel="shortcut icon" type="image/x-icon" href="https://static.codepen.io/assets/favicon/favicon-aec34940fbc1a6e787974dcd360f2c6b63348d4b1f4e06c77743096d55480f33.ico" />
 <link rel="mask-icon" type="" href="https://static.codepen.io/assets/favicon/logo-pin-8f3771b1072e3c38bd662872f6b673a722f4b3ca2421637d5596661b4e2132cc.svg" color="#111" />
-<title>CodePen - AACodeing02-2</title>
+<title>CodePen - AACoding04-8</title>
 <style>
 .correct{
   background:green;
- 
 }
+
 .incorrect{
   background:red;
 }
@@ -21,29 +22,48 @@
 <body translate="no">
 <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
 <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-\( 2^3 \)
-<div>
-\( \sqrt[3]{8} = 8^{\frac{1}{3}} = 2 \)
-</div>
-<h1>Maya's 10 favorite math problem</h1>
+<audio id="sad" controls>
+<source src="https://math.seattleacademy.org/garyanderson/snd/sad.mp3" type="audio/mpeg">
+</audio>
+<div>Timer: <span id="theTimer">0</span> Score: <span id="score">0</span></div>
+<h1>Maya's Awesome Math Problems</h1>
 <ol>
-<li>\( \sqrt[3]{8} + \sqrt[3]{27} \)
-<input data-correct=5/>
-</li>
-</ol>
+<li> \( 2^3 \) <input data-correct="8" /> </li>
+<li> \( \sqrt[3]{8} \) <input data-correct="2" /></li>
+<li> \( 8^\frac{1}{3} \) <input data-correct="2" /></li>
+<li> \( 27^\frac{-2}{3} \) <input data-correct="1/9" /></li>
+<ol>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script>
 <script id="rendered-js">
+const sad = document.getElementById("sad");
+setInterval(onTimer, 1000);
+function onTimer() {
+  let theTimer = Number($("#theTimer").text());
+  theTimer = theTimer + 1;
+  $("#theTimer").text(theTimer);
+}
+
 $("input").change(onChange);
-function onChange(evt){
-  let correct = $(this).data("correct")
+
+function onChange(evt) {
+  let correct = $(this).data("correct");
   let response = $(this).val();
-  console.log(correct,response)
-  
-  if(correct==response){
-    $(this).removeClass("incorrect").addClass("correct")
+  if (correct == response) {
+    let score = Number($("#score").text());
+    score = score + 1;
+    $("#score").text(score);
+    $(this)
+      .removeClass("incorrect")
+      .addClass("correct");
+  } else {
+    $(this)
+      .removeClass("correct")
+      .addClass("incorrect");
+    if (Math.random() > 0.9) {
+      sad.play();
+    }
   }
 }
     </script>
 </body>
 </html>
-
